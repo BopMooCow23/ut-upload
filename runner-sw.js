@@ -1,6 +1,6 @@
 const loadGame = () => {
   let script = document.createElement("script");
-  script.src = "runner.js";
+  script.src = "https://cdn.jsdelivr.net/gh/bopmoocow23/ut-upload/runner.js";
   script.async = true;
   document.head.appendChild(script);
 };

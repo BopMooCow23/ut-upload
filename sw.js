@@ -2,11 +2,11 @@ const GAME_NAME = "NXTALE";
 const GAME_VERSION = "0.0.0.0";
 
 const CACHE_NAME = JSON.stringify({"name": GAME_NAME, "version": GAME_VERSION});
-const CACHE_FILES = ["runner.data",
-"runner.js",
-"runner.wasm",
-"audio-worklet.js",
-"game.unx",
+const CACHE_FILES = ["https://cdn.jsdelivr.net/gh/bopmoocow23/ut-upload/runner.data",
+"https://cdn.jsdelivr.net/gh/bopmoocow23/ut-upload/runner.js",
+"https://cdn.jsdelivr.net/gh/bopmoocow23/ut-upload/runner.wasm",
+"https://cdn.jsdelivr.net/gh/bopmoocow23/ut-upload/audio-worklet.js",
+"https://cdn.jsdelivr.net/gh/bopmoocow23/ut-upload/game.unx",
 "mus_alphysfix.ogg",
 "mus_amalgam.ogg",
 "mus_ambientwater.ogg",
