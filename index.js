@@ -123,13 +123,52 @@ var Module = {
   },
 };
 Module.setStatus("Downloading...");
-window.onerror = function (event) {
-  // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
-  Module.setStatus("Exception thrown, see JavaScript console");
-  spinnerElement.style.display = "none";
+window.onerror = function (
+  message,
+  source,
+  lineno,
+  colno,
+  error
+) {
+  var text =
+    "GAME ERROR\n\n" +
+    "Message:\n" +
+    String(message) +
+    "\n\n" +
+    "Source:\n" +
+    String(source) +
+    "\n\n" +
+    "Line: " +
+    String(lineno) +
+    "\n" +
+    "Column: " +
+    String(colno);
+
+  if (error && error.stack) {
+    text +=
+      "\n\nStack:\n" +
+      error.stack;
+  }
+
+  console.error(text);
+
+  Module.setStatus(
+    text.replace(/\n/g, "<br>")
+  );
+
+  spinnerElement.style.display =
+    "none";
+
   Module.setStatus = function (text) {
-    if (text) Module.printErr("[post-exception status] " + text);
+    if (text) {
+      Module.printErr(
+        "[post-exception status] " +
+        text
+      );
+    }
   };
+
+  return true;
 };
 
 // Route URL GET parameters to argc+argv
