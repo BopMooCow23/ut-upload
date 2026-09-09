@@ -124,41 +124,53 @@ var Module = {
 };
 Module.setStatus("Downloading...");
 
-window.onerror = function(
+window.onerror = function (
   message,
   source,
   lineno,
   colno,
   error
 ) {
-  var output =
-    "REAL ERROR\n\n" +
+  var text =
+    "REAL GAME ERROR\n\n" +
     "Name: " +
     (error && error.name
       ? error.name
       : "Error") +
-    "\n\nMessage: " +
+    "\n\n" +
+    "Message:\n" +
     String(message) +
-    "\n\nSource: " +
+    "\n\n" +
+    "Source:\n" +
     String(source) +
-    "\n\nLine: " +
+    "\n\n" +
+    "Line: " +
     String(lineno) +
-    "\nColumn: " +
+    "\n" +
+    "Column: " +
     String(colno);
 
   if (error && error.stack) {
-    output +=
+    text +=
       "\n\nStack:\n" +
       error.stack;
   }
 
-  console.error(output);
+  console.error(text);
+
+  if (typeof Module !== "undefined") {
+    Module.setStatus = function (msg) {
+      if (msg) {
+        Module.printErr(msg);
+      }
+    };
+  }
 
   var status =
     document.getElementById("status");
 
   if (status) {
-    status.textContent = output;
+    status.textContent = text;
   }
 
   if (
@@ -170,6 +182,8 @@ window.onerror = function(
 
   return true;
 };
+
+
 
 
 // Route URL GET parameters to argc+argv
