@@ -123,53 +123,54 @@ var Module = {
   },
 };
 Module.setStatus("Downloading...");
-window.onerror = function (
+
+window.onerror = function(
   message,
   source,
   lineno,
   colno,
   error
 ) {
-  var text =
-    "GAME ERROR\n\n" +
-    "Message:\n" +
+  var output =
+    "REAL ERROR\n\n" +
+    "Name: " +
+    (error && error.name
+      ? error.name
+      : "Error") +
+    "\n\nMessage: " +
     String(message) +
-    "\n\n" +
-    "Source:\n" +
+    "\n\nSource: " +
     String(source) +
-    "\n\n" +
-    "Line: " +
+    "\n\nLine: " +
     String(lineno) +
-    "\n" +
-    "Column: " +
+    "\nColumn: " +
     String(colno);
 
   if (error && error.stack) {
-    text +=
+    output +=
       "\n\nStack:\n" +
       error.stack;
   }
 
-  console.error(text);
+  console.error(output);
 
-  Module.setStatus(
-    text.replace(/\n/g, "<br>")
-  );
+  var status =
+    document.getElementById("status");
 
-  spinnerElement.style.display =
-    "none";
+  if (status) {
+    status.textContent = output;
+  }
 
-  Module.setStatus = function (text) {
-    if (text) {
-      Module.printErr(
-        "[post-exception status] " +
-        text
-      );
-    }
-  };
+  if (
+    typeof spinnerElement !== "undefined" &&
+    spinnerElement
+  ) {
+    spinnerElement.style.display = "none";
+  }
 
   return true;
 };
+
 
 // Route URL GET parameters to argc+argv
 if (typeof window === "object") {
