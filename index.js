@@ -922,6 +922,13 @@ if (/Android|iPhone|iPod/i.test(navigator.userAgent)) {
   outputContainerElement.hidden = true;
 }
 
+js
+function isMultiplayer() {
+  return typeof Module.GM_is_multiplayer === "function"
+    ? Module.GM_is_multiplayer()
+    : false;
+}
+
 document.addEventListener("visibilitychange", (event) => {
   if (document.visibilityState != "visible") {
     pause();
@@ -929,6 +936,8 @@ document.addEventListener("visibilitychange", (event) => {
     resume();
   }
 });
+
+
 
 window.addEventListener("load", (event) => {
   if ((!window.oprt || !window.oprt.enterFullscreen) && (!window.chrome || !window.chrome.runtime || !window.chrome.runtime.sendMessage)) {
